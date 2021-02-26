@@ -1,25 +1,132 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from 'react'
+import styled from 'styled-components'
+import { Button } from 'react-bootstrap'
 function App() {
+
+  const [c1, setC1] = useState('');
+  const [c2, setC2] = useState('');
+  const [h, setH] = useState('');
+  const [res, setRes] = useState('');
+
+
+  const calcular = () => {
+
+    if (c1 !== '' && c2 !== '' && h !== '') {
+      setRes(<span>Por favor, digite apenas dois valores</span>)
+    }
+    else if (c1 === "") {
+      const c = Math.sqrt((h * h) - (c2 * c2))
+      setRes(<span>Cateto 1 = {c}</span>)
+
+    } else if (c2 === "") {
+      const c = Math.sqrt((h * h) - (c1 * c1))
+      setRes(<span>Cateto 2 = {c}</span>)
+      console.log(res)
+
+    } else {
+      const res = Math.hypot(c1, c2);
+
+      setRes(<span>Hipotenusa = {res}</span>)
+      console.log(res)
+    }
+  };
+
+
+
+
+
+
+  const limpar = () => {
+    setC1('');
+    setC2('');
+    setH('');
+
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <Main >
+
+      <Container>
+        <Title style={{ fontFamily: "cursive" }}>Teorema de Pitágoras</Title>
+        <Buttons>
+          <strong> Cateto 1 =</strong>
+          <Input id="c1" value={c1} type="text" onChange={(e) => setC1(e.target.value)} ></Input>
+          <strong> Cateto 2 =</strong>
+          <Input id="c2" value={c2} type="text" onChange={(e) => setC2(e.target.value)} ></Input>
+          <strong> Hipotenusa =</strong>
+          <Input id="h" value={h} type="text" onChange={(e) => setH(e.target.value)} ></Input>
+        </Buttons>
+        <div style={{ marginTop: 40 }}>
+          <Res style={{ fontFamily: "cursive" }}>  {res} </Res>
+        </div>
+        <Botoes>
+          <Button color='#000' variant="dark" onClick={limpar}>Limpar</Button>{' '}
+          <Button variant="primary" onClick={calcular}>Calcular</Button>
+        </Botoes>
+
+
+
+
+      </Container>
+
+    </Main>
+
   );
-}
+};
+
+const Res = styled.span`
+  color: #f2f2f2;
+  font-size: 27px;
+  background-color: #000;
+  border-radius: 10px;
+  padding: 2px;
+  `;
+
+const Botoes = styled.div`
+  justify-content: flex-end;
+  bottom: 20;
+  margin-top: 50px;
+  display: block;
+  padding: 10px;
+`;
+
+const Container = styled.div`
+  width: 500px;
+  height: 500px;
+  background-color:  rgba(163, 170, 201, 0.8);
+  border-radius: 20px;
+  
+`;
+const Input = styled.input`
+  width: 80px;
+  margin: 20px;
+`;
+
+const Buttons = styled.div`
+    background-color: rgba(163, 170, 201, 1);
+    width: 250px;
+    margin-left: 25%;
+    padding: 2;
+    border-radius: 20px;
+    text-align: end;
+    font-size: 19px;
+    
+`;
+
+const Main = styled.div`
+background-color: #333;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 937px;
+  
+
+`;
+
+const Title = styled.h1`
+  color: #000;
+`;
 
 export default App;
