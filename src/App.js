@@ -1,18 +1,33 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
+import axios from "axios";
+
 function App() {
 
+  //Usando hooks 'useState' para controlar o estado das variáveis 
   const [c1, setC1] = useState('');
   const [c2, setC2] = useState('');
   const [h, setH] = useState('');
   const [res, setRes] = useState('');
 
+  //Requisição axios para realizar o calculo na API em Flask
+  axios.create({ baseURL: 'http://localhost/5000' })
+  async function enviar() {
+    await axios.post('/calc', { c1: c1, c2: c2, h: h })
+      .then(data => {
+        setRes(<span>{data.data}</span>)
+        console.log(data);
+      }, err => console.log(err))
+  };
 
+  //Aqui é realizado o cálculo direto no react
   const calcular = () => {
-
     if (c1 !== '' && c2 !== '' && h !== '') {
       setRes(<span>Por favor, digite apenas dois valores</span>)
+    }
+    else if (c1 === '' && c2 === '' && h === '') {
+      setRes(<span>Digite pelo menos dois valores</span>)
     }
     else if (c1 === "") {
       const c = Math.sqrt((h * h) - (c2 * c2))
@@ -30,23 +45,16 @@ function App() {
       console.log(res)
     }
   };
-
-
-
-
-
-
+  //Limpar os dados dos inputs
   const limpar = () => {
     setC1('');
     setC2('');
     setH('');
-
   };
 
   return (
 
     <Main >
-
       <Container>
         <Title style={{ fontFamily: "cursive" }}>Teorema de Pitágoras</Title>
         <Buttons>
@@ -62,19 +70,16 @@ function App() {
         </div>
         <Botoes>
           <Button color='#000' variant="dark" onClick={limpar}>Limpar</Button>{' '}
-          <Button variant="primary" onClick={calcular}>Calcular</Button>
+          <Button variant="primary" onClick={enviar}>Calcular com API</Button>{' '}
+          <Button variant="primary" onClick={calcular}>Calcular com React</Button>
         </Botoes>
-
-
-
-
       </Container>
-
     </Main>
 
   );
 };
 
+//Estilização através da ferramenta 'styled-components' 
 const Res = styled.span`
   color: #f2f2f2;
   font-size: 27px;
