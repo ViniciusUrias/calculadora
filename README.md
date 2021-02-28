@@ -2,10 +2,11 @@
 
 ## Nota
 
+O projeto em Python deve estar rodando simultaneamente com este
+
 Após realizar o clone e entrar na pasta do projeto, instale as dependências com:
 
 ### `npm install`
-
 
 Para rodar o projeto em web:
 
