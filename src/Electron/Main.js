@@ -1,5 +1,8 @@
 const { app, BrowserWindow } = require('electron');
 
+
+//Código básico apenas para rodar a aplicação em ElectronJS
+
 function createWindow() {
     const win = new BrowserWindow({
         darkTheme: true,

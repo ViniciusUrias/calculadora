@@ -69,8 +69,11 @@ function App() {
           <Res style={{ fontFamily: "cursive" }}>  {res} </Res>
         </div>
         <Botoes>
+
           <Button color='#000' variant="dark" onClick={limpar}>Limpar</Button>{' '}
+          {/* este botão realiza o cálculo através da API */}
           <Button variant="primary" onClick={enviar}>Calcular com API</Button>{' '}
+          {/* este botão realiza o cálculo direto no código React */}
           <Button variant="primary" onClick={calcular}>Calcular com React</Button>
         </Botoes>
       </Container>
